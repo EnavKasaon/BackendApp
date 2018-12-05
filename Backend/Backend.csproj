@@ -126,6 +126,7 @@
     <Compile Include="Controllers\SuppController_old.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
     <Compile Include="DbConnection\MySQLCon.cs" />
+    <Compile Include="DbConnection\SupplierConnection.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

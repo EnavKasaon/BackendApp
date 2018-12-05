@@ -22,7 +22,7 @@ namespace Backend.Controllers
         {
             try
             {
-                var res = MySQLCon.InsertSupplier(su);
+                var res = SupplierConnection.InsertSupplier(su);
                 su.ID = res;
                return Json(new { success = true, SuccesMsg = res });
             }
@@ -42,7 +42,48 @@ namespace Backend.Controllers
             try
             {
                 List<Supplier> result = new List<Supplier>();
-                result = MySQLCon.GetSupplierData();
+                result = SupplierConnection.GetSupplierData();
+                return Json(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return Json(ex.ToString());
+            }
+        }
+        /// <summary>
+        /// Get Supplier by ID, if doesnt exists return null
+        /// </summary>
+        /// <returns></returns>
+        [AcceptVerbs("GET")]
+        public IHttpActionResult GetSupplierByID(int id)
+        {
+            try
+            {
+                Supplier result = new Supplier();
+                result = SupplierConnection.GetSupplierByID(id);
+                return Json(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return Json(ex.ToString());
+            }
+        }
+        /// <summary>
+        /// delete supplier 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [AcceptVerbs("GET")]
+        public IHttpActionResult Delete(int id)
+        {
+            try
+            {
+                Supplier result = new Supplier();
+                result = SupplierConnection.GetSupplierByID(id);
                 return Json(result);
 
             }
