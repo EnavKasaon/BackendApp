@@ -129,6 +129,7 @@ namespace Backend.DbConnection
         /// <returns></returns>
         public static int DeleteSupplier(int id)
         {
+            int rowsNum = 0;
             try
             {
 
@@ -136,14 +137,14 @@ namespace Backend.DbConnection
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MyConn2.Open();
-                MyCommand2.ExecuteReader();     // Here our query will be executed and data saved into the database.  
+                rowsNum = MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.  
 
                 MyConn2.Close();
-                return 0;
+                return rowsNum;
             }
             catch (Exception ex)
             {
-                return -1;
+                return rowsNum = -1;
             }
         }
     }

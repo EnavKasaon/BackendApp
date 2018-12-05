@@ -77,13 +77,13 @@ namespace Backend.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [AcceptVerbs("GET")]
+        [AcceptVerbs("DELETE", "OPTIONS")]
         public IHttpActionResult Delete(int id)
         {
             try
             {
-                Supplier result = new Supplier();
-                result = SupplierConnection.GetSupplierByID(id);
+                int result = -1;
+                result = SupplierConnection.DeleteSupplier(id);
                 return Json(result);
 
             }
