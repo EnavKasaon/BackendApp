@@ -123,6 +123,33 @@ namespace Backend.DbConnection
             }
         }
         /// <summary>
+        /// Update supplier data using ID
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static int UpdateSupplier(Supplier s)
+        {
+            int rowsNum = -1;
+            try
+            {
+
+                string Query = "UPDATE `supplier_tbl` SET `company_name`='"+s.companyName+"',`phone`='"+s.Phone+"',`fax`='"+s.Fax+"',`contact_person`='"+s.ContactPerson+"',`contact_phone`='"+s.ContactPhone+"',`goods_type`='"+s.GoodsType+"',`supplier_type`='"+s.SupplierType+"' WHERE ID ="+s.ID+";";
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                MySqlDataReader MyReader2;
+                MyConn2.Open();
+                rowsNum = MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.  
+
+                MyConn2.Close();
+                return rowsNum;
+                
+            }
+            catch (Exception ex)
+            {
+                return rowsNum;
+            }
+        }
+        /// <summary>
         /// delete supplier
         /// </summary>
         /// <param name="s"></param>

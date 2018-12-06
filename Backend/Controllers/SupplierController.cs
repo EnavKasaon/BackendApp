@@ -93,5 +93,26 @@ namespace Backend.Controllers
                 return Json(ex.ToString());
             }
         }
+        /// <summary>
+        /// update supplier
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        [AcceptVerbs("PUT", "OPTIONS")]
+        public IHttpActionResult Update([FromBody]Supplier s)
+        {
+            try
+            {
+                int result = -1;
+                result = SupplierConnection.UpdateSupplier(s);
+                return Json(result);
+
+            }
+            catch (Exception ex)
+            {
+
+                return Json(ex.ToString());
+            }
+        }
     }
 }

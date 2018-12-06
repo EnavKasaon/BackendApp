@@ -123,15 +123,17 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\SuppController_old.cs" />
     <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Controllers\VolunteerController.cs" />
     <Compile Include="DbConnection\MySQLCon.cs" />
     <Compile Include="DbConnection\SupplierConnection.cs" />
+    <Compile Include="DbConnection\VolunteerConnection.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\enumTypeSupplier.cs" />
     <Compile Include="Models\Supplier.cs" />
+    <Compile Include="Models\Volunteer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
