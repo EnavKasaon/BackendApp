@@ -8,30 +8,29 @@ using System.Net.Http;
 using System.Web.Http;
 
 namespace Backend.Controllers {
-    public class VolunteerController : ApiController {
 
-        // Insert new Volunteer
+    public class FamilyController : ApiController {
+
+        // Insert new Family
         [AcceptVerbs("POST", "GET", "OPTIONS")]
-        public IHttpActionResult Insert([FromBody]Volunteer vo)  {
-            try  {
-                var res = VolunteerConnection.InsertVolunteer(vo);
-                vo.VolunteerId = res;
+        public IHttpActionResult Insert([FromBody]Family fa) {
+            try {
+                var res = FamilyConnection.InsertFamily(fa);
+                fa.familyId = res;
                 return Json(new { success = true, SuccesMsg = res });
             }
-
-            //  return Json(res); }
-            catch (Exception ex)   {
+            catch (Exception ex)  {
                 return Json(new { success = false, ErrorMsg = ex.Message });
             }
         }
 
 
-        /// Get all Volunteers Data
+        /// Get all Family Data
         [AcceptVerbs("GET")]
-        public IHttpActionResult GetAllVolunteers() {
+        public IHttpActionResult GetAllFamilies()  {
             try  {
-                List<Volunteer> result = new List<Volunteer>();
-                result = VolunteerConnection.GetVolunteerData();
+                List<Family> result = new List<Family>();
+                result = FamilyConnection.GetFamilyData();
                 return Json(result);
             }
             catch (Exception ex) {
@@ -39,24 +38,25 @@ namespace Backend.Controllers {
             }
         }
 
-        /// Get Volunteer by ID, if doesnt exists return null
+        /// Get Family by ID, if doesnt exists return null
         [AcceptVerbs("GET")]
-        public IHttpActionResult GetVolunteerByID(int id)  {
-            try  {
-                Volunteer result = new Volunteer();
-                result = VolunteerConnection.GetVolunteerByID(id);
+        public IHttpActionResult GetFamiliesByID(int id)  {
+            try {
+                Family result = new Family();
+                result = FamilyConnection.GetFamilyByID(id);
                 return Json(result);
             }
-            catch (Exception ex)  {
-                return Json(ex.ToString()); }
+            catch (Exception ex) {
+                return Json(ex.ToString());
+            }
         }
 
-        /// Delete volunteer 
+        /// Delete family 
         [AcceptVerbs("DELETE", "OPTIONS")]
         public IHttpActionResult Delete(int id)  {
             try  {
                 int result = -1;
-                result = VolunteerConnection.DeleteVolunteer(id);
+                result = FamilyConnection.DeleteFamily(id);
                 return Json(result);
             }
             catch (Exception ex)  {
@@ -65,25 +65,25 @@ namespace Backend.Controllers {
         }
 
 
-        /// Update volunteer
+        /// Update family
         [AcceptVerbs("PUT", "OPTIONS")]
-        public IHttpActionResult Update([FromBody]Volunteer vo)  {
-            try {
-                int result = -1;
-                result = VolunteerConnection.UpdateVolunteer(vo);
-                return Json(result);
-            }
-            catch (Exception ex)  {
-                return Json(ex.ToString());
-            }
-        }
-
-        /// View volunteer
-        [AcceptVerbs("PUT", "OPTIONS")]
-        public IHttpActionResult View([FromBody]Volunteer vo)  {
+        public IHttpActionResult Update([FromBody]Family fa)   {
             try   {
                 int result = -1;
-                result = VolunteerConnection.ViewVolunteer(vo);
+                result = FamilyConnection.UpdateFamily(fa);
+                return Json(result);
+            }
+            catch (Exception ex)  {
+                return Json(ex.ToString());
+            }
+        }
+
+        /// View family
+        [AcceptVerbs("PUT", "OPTIONS")]
+        public IHttpActionResult View([FromBody]Family fa)  {
+            try {
+                int result = -1;
+                result = FamilyConnection.ViewFamily(fa);
                 return Json(result);
             }
             catch (Exception ex)  {
