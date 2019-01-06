@@ -12,9 +12,7 @@ namespace Backend.DbConnection
         
         public static string conString = "user id=root;server=127.0.0.1;persistsecurityinfo=True;database=ahvaandhesed_db; CharSet=utf8";
         public static MySqlConnection conn = new MySqlConnection(conString);
-
-
-      
+ 
     }
     
 }

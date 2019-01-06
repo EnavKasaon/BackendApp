@@ -15,7 +15,7 @@ namespace Backend.Controllers {
         /// </summary> 
         /// <param name="su"></param>
         /// <returns></returns>
-        [AcceptVerbs("POST","GET", "OPTIONS")]
+        [AcceptVerbs("POST","GET", "OPTIONS", "PUT")]
         public IHttpActionResult Insert([FromBody]Supplier su)   {
             try {
                 var res = SupplierConnection.InsertSupplier(su);
@@ -69,7 +69,7 @@ namespace Backend.Controllers {
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        [AcceptVerbs("DELETE", "OPTIONS")]
+        [AcceptVerbs("DELETE", "OPTIONS", "PUT")]
         public IHttpActionResult Delete(int id)
         {
             try
@@ -120,5 +120,25 @@ namespace Backend.Controllers {
                 return Json(ex.ToString());
             }
         }
+
+
+
+       // public FileResultSupplier Download()  {
+         //   var supplier = SupplierConnection.GetAllSuppliers();
+           // using (var outputStream = new MemoryStream())  {
+             //   var writer = new CsvWriter(outputStream);
+               // writer.WriteRow(new object[] { "ID", "SAP Name", "Opportunity Id", "Opportunity Name", "SFDC Product Name", "Cust Prod.", "SFDC ID", "Customer Name", "Flow", "FAB", "Mask Set Name", "Is Gm", "GM Name", "Map Status", "Created Date", "Reason" });
+                //foreach (var product in products)  {
+                  //  writer.WriteRow(new object[] { product.ProductId, product.SapName, product.OpportunityId, product.OpportunityName, product.SfdcName, product.CustomerProductName, product.SfdcId, product.CustomerName, product.Flow, product.FabName, product.MaskSetName, product.IsGM, product.GMProductName, product.MappingStatus, product.MappingDate, product.Reason });
+                //}
+
+           //     outputStream.Flush();
+           //     outputStream.Seek(0, SeekOrigin.Begin);
+           //     var data = outputStream.ToArray();
+           //     var res = File(data, "application/octet");
+           //     res.FileDownloadName = "bpm.products.csv";
+             //   return res;
+         //   }
+      //  }
     }
 }

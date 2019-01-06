@@ -103,28 +103,29 @@ namespace Backend.DbConnection
                 return -1;  }
         }
 
+        internal static object GetAllSuppliers()
+        {
+            throw new NotImplementedException();
+        }
+
 
         /// <summary>
         /// Update supplier data using ID
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static int UpdateSupplier(Supplier s)
-        {
+        public static int UpdateSupplier(Supplier s)   {
             int rowsNum = -1;
             try
             {
-
                 string Query = "UPDATE `supplier_tbl` SET `company_name`='"+s.companyName+"',`phone`='"+s.Phone+"',`fax`='"+s.Fax+"',`contact_person`='"+s.ContactPerson+"',`contact_phone`='"+s.ContactPhone+"',`goods_type`='"+s.GoodsType+"',`supplier_type`='"+s.SupplierType+"' WHERE ID ="+s.ID+";";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
                 MyConn2.Open();
                 rowsNum = MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.  
-
                 MyConn2.Close();
                 return rowsNum;
-                
             }
             catch (Exception ex)
             {
@@ -158,24 +159,18 @@ namespace Backend.DbConnection
         /// </summary>
         /// <param name="s"></param>
         /// <returns></returns>
-        public static int DeleteSupplier(int id)
-        {
-            int rowsNum = 0;
-            try
-            {
-
+        public static int DeleteSupplier(int id)  {
+            int rowsNum = -1;
+            try  {
                 string Query = "DELETE FROM supplier_tbl WHERE ID = "+id+";";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MyConn2.Open();
                 rowsNum = MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.  
-
                 MyConn2.Close();
+                return rowsNum;  }
+            catch (Exception ex)  {
                 return rowsNum;
-            }
-            catch (Exception ex)
-            {
-                return rowsNum = -1;
             }
         }
     }
