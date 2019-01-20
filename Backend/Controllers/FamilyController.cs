@@ -12,7 +12,7 @@ namespace Backend.Controllers {
     public class FamilyController : ApiController {
 
         // Insert new Family
-        [AcceptVerbs("POST", "GET", "OPTIONS")]
+        [AcceptVerbs("POST", "GET", "OPTIONS", "PUT")]
         public IHttpActionResult Insert([FromBody]Family fa) {
             try {
                 var res = FamilyConnection.InsertFamily(fa);
@@ -40,7 +40,7 @@ namespace Backend.Controllers {
 
         /// Get Family by ID, if doesnt exists return null
         [AcceptVerbs("GET")]
-        public IHttpActionResult GetFamiliesByID(int id)  {
+        public IHttpActionResult GetFamilyByID(int id)  {
             try {
                 Family result = new Family();
                 result = FamilyConnection.GetFamilyByID(id);
@@ -52,15 +52,15 @@ namespace Backend.Controllers {
         }
 
         /// Delete family 
-        [AcceptVerbs("DELETE", "OPTIONS")]
+        [AcceptVerbs("DELETE", "OPTIONS", "PUT")]
         public IHttpActionResult Delete(int id)  {
             try  {
                 int result = -1;
                 result = FamilyConnection.DeleteFamily(id);
-                return Json(result);
+                return Json(new { success = true, SuccesMsg = result });
             }
             catch (Exception ex)  {
-                return Json(ex.ToString());
+                return Json(new { success = false, ErrorMsg = ex.Message });
             }
         }
 
@@ -71,10 +71,10 @@ namespace Backend.Controllers {
             try   {
                 int result = -1;
                 result = FamilyConnection.UpdateFamily(fa);
-                return Json(result);
+                return Json(new { success = true, SuccesMsg = result });
             }
             catch (Exception ex)  {
-                return Json(ex.ToString());
+                return Json(new { success = false, ErrorMsg = ex.Message });
             }
         }
 

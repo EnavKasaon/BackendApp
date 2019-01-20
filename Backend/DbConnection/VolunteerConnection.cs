@@ -44,14 +44,23 @@ namespace Backend.DbConnection {
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
+             //   if (!String.IsNullOrEmpty(s))
+              //  {
+                //    DateTime BirthDate = DateTime.Parse(s);
+                //}
+
                 while (rdr.Read())  {
                     volunteers.Add(new Volunteer() {
                         VolunteerId = Int32.Parse(rdr[0].ToString()),
                         VolunteerFName = rdr[1].ToString(),
                         VolunteerLName = rdr[2].ToString(),
                         vPhone = rdr[3].ToString(),
-                      //  BirthDate = DateTime.Parse(rdr[4].ToString()),
-                        VolunteerType = rdr[5].ToString()
+                //        String s = Convert.ToString(rdr.GetValue(4));
+                //    DateTime BirthDate = DateTime.Parse(s);
+
+                    //    BirthDate = DateTime.Parse(rdr[4].ToString()),
+                    VolunteerType = rdr[5].ToString()
+
                     });
                 }
                 rdr.Close();  }

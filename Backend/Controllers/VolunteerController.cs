@@ -57,10 +57,13 @@ namespace Backend.Controllers {
             try  {
                 int result = -1;
                 result = VolunteerConnection.DeleteVolunteer(id);
-                return Json(result);
+                //  return Json(result); 
+                return Json(new { success = true, SuccesMsg = result });
             }
             catch (Exception ex)  {
-                return Json(ex.ToString());
+                //     return Json(ex.ToString());
+                return Json(new { success = false, ErrorMsg = ex.Message });
+
             }
         }
 
@@ -71,10 +74,13 @@ namespace Backend.Controllers {
             try {
                 int result = -1;
                 result = VolunteerConnection.UpdateVolunteer(vo);
-                return Json(result);
+                // return Json(result);
+                return Json(new { success = true, SuccesMsg = result });
+
             }
             catch (Exception ex)  {
-                return Json(ex.ToString());
+                //   return Json(ex.ToString());
+                return Json(new { success = false, ErrorMsg = ex.Message });
             }
         }
 

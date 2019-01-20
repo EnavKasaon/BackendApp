@@ -104,7 +104,7 @@ namespace Backend.DbConnection {
                         notes = rdr[8].ToString(),
                         howDidYouHear = rdr[9].ToString(),
                         reasonForReferral = rdr[10].ToString(),
-                        joinDate = DateTime.Parse(rdr[11].ToString()),
+                     //   joinDate = DateTime.Parse(rdr[11].ToString()),
                         familyType = rdr[12].ToString(),
                         basketType = rdr[13].ToString(),
                         house = Boolean.Parse(rdr[14].ToString()),
