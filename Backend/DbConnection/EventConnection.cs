@@ -7,13 +7,13 @@ using System.Web;
 
 namespace Backend.DbConnection
 {
-    public class TaskConnection
+    public class EventConnection
     {
-        public static int InsertTask(Task t)
+        public static int InsertEvent(Event e)
         {
             try
             {
-                string Query = "INSERT INTO `task_tbl`( `task_desc`) VALUES ('" + t.task_desc + "'); SELECT LAST_INSERT_ID();";
+                string Query = "INSERT INTO `events_tbl` ( `event_desc`, `start_date`, `end_date`, `color`) VALUES ('" + e.event_desc + "','"+ e.start_date + "','" + e.end_date + "','" + e.color + "'); SELECT LAST_INSERT_ID();";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
@@ -32,25 +32,26 @@ namespace Backend.DbConnection
                 return -1;
             }
         }
-        public static List<Task> GetAll()
+        public static List<Event> GetAll()
         {
             MySqlConnection conn = new MySqlConnection(MySQLCon.conString);
-            List<Task> tasks = new List<Task>();
+            List<Event> tasks = new List<Event>();
             try
             {
                 conn.Open(); //open the connection
-                string sql = "SELECT * FROM task_tbl";
+                string sql = "SELECT * FROM events_tbl";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
                 while (rdr.Read())
                 {
-                    tasks.Add(new Task()
+                    tasks.Add(new Event()
                     {
-                        task_id = Int32.Parse(rdr[0].ToString()),
-                        task_desc = rdr[1].ToString(),
-                        task_status = Boolean.Parse(rdr[2].ToString())
-
+                        event_id = Int32.Parse(rdr[0].ToString()),
+                        event_desc = rdr[1].ToString(),
+                        start_date = DateTime.Parse(rdr[2].ToString()),
+                        end_date = DateTime.Parse(rdr[3].ToString()),
+                        color = rdr[4].ToString()
                     });
                 }
                 rdr.Close();
@@ -68,7 +69,7 @@ namespace Backend.DbConnection
             int rowsNum = -1;
             try
             {
-                string Query = "DELETE FROM task_tbl WHERE task_id = " + id + ";";
+                string Query = "DELETE FROM event_tbl WHERE event_id = " + id + ";";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MyConn2.Open();
@@ -80,6 +81,6 @@ namespace Backend.DbConnection
             {
                 return rowsNum;
             }
-        }
+        } 
     }
 }

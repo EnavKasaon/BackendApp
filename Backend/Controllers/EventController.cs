@@ -9,15 +9,15 @@ using System.Web.Http;
 
 namespace Backend.Controllers
 {
-    public class TaskController : ApiController
+    public class EventController : ApiController
     {
         [AcceptVerbs("POST", "GET", "OPTIONS", "PUT")]
-        public IHttpActionResult Insert([FromBody]Task t)
+        public IHttpActionResult Insert([FromBody]Event t)
         {
             try
             {
-                var res = TaskConnection.InsertTask(t);
-                t.task_id = res;
+                var res = EventConnection.InsertEvent(t);
+                t.event_id = res;
                 return Json(new { success = true, SuccesMsg = res });
             }
             catch (Exception ex)
@@ -28,12 +28,12 @@ namespace Backend.Controllers
         }
 
         [AcceptVerbs("GET")]
-        public IHttpActionResult GetAllTasks()
+        public IHttpActionResult GetAllEvents()
         {
             try
             {
-                List<Task> result = new List<Task>();
-                result = TaskConnection.GetAll();
+                List<Event> result = new List<Event>();
+                result = EventConnection.GetAll();
                 return Json(result);
             }
             catch (Exception ex)
@@ -47,7 +47,7 @@ namespace Backend.Controllers
             try
             {
                 int result = -1;
-                result = TaskConnection.Delete(id);
+                result = EventConnection.Delete(id);
                 //  return Json(result);
                 return Json(new { success = true, SuccesMsg = result });
             }
@@ -57,6 +57,5 @@ namespace Backend.Controllers
                 //   return Json(ex.ToString());
             }
         }
-
     }
 }

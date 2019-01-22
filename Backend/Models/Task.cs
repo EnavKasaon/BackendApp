@@ -7,7 +7,8 @@ namespace Backend.Models
 {
     public class Task
     {
-        public int taskID { get; set; }
-        public string taskDesc { get; set; }
+        public int task_id { get; set; }
+        public string task_desc { get; set; }
+        public Boolean task_status { get; set; }
     }
 }
