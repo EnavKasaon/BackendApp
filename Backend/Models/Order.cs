@@ -9,7 +9,6 @@ namespace Backend.Models
     {
         public int order_id { get; set; }
         public OrderType order_type { get; set; }
-        public Supplier supplier { get; set; }
         public DateTime order_date { get; set; }
         public DateTime received_date { get; set; }
     }
