@@ -22,7 +22,6 @@ namespace Backend.Controllers {
                 su.ID = res;
                return Json(new { success = true, SuccesMsg = res });  }
             catch (Exception ex)  {
-                
                return Json(new { success = false, ErrorMsg = ex.Message }); }
         }
 

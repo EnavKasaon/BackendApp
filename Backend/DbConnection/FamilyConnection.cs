@@ -110,7 +110,7 @@ namespace Backend.DbConnection {
                         familyType = rdr[12].ToString(),
                         basketType = rdr[13].ToString(),
                         house = Boolean.Parse(rdr[14].ToString()),
-                        car = Boolean.Parse(rdr[15].ToString()),
+                      //  car = Boolean.Parse(rdr[15].ToString()),
                         debt = Boolean.Parse(rdr[16].ToString()),
                         payChecks = Boolean.Parse(rdr[17].ToString()),
                         bituahLeumi = Boolean.Parse(rdr[18].ToString()),
