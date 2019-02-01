@@ -9,7 +9,7 @@ namespace Backend.Models
     {
         public int order_type_id { get; set; }
         public string order_type_name { get; set; }
-        public int supplier_id { get; set; }
+        public Supplier supplier { get; set; }
         public List<Product> products { get; set; }
     }
 }
