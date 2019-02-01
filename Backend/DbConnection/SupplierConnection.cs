@@ -103,8 +103,7 @@ namespace Backend.DbConnection
                 return -1;  }
         }
 
-        internal static object GetAllSuppliers()
-        {
+        internal static object GetAllSuppliers()  {
             throw new NotImplementedException();
         }
 

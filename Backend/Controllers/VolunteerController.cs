@@ -11,23 +11,22 @@ namespace Backend.Controllers {
     public class VolunteerController : ApiController {
 
         // Insert new Volunteer
-        [AcceptVerbs("POST", "GET", "OPTIONS")]
+        [AcceptVerbs("POST", "GET", "OPTIONS", "PUT")]
         public IHttpActionResult Insert([FromBody]Volunteer vo)  {
             try  {
                 var res = VolunteerConnection.InsertVolunteer(vo);
                 vo.VolunteerId = res;
                 return Json(new { success = true, SuccesMsg = res });
             }
-
-            //  return Json(res); }
-            catch (Exception ex)   {
+                    catch (Exception ex)   {
                 return Json(new { success = false, ErrorMsg = ex.Message });
             }
         }
+   
 
 
-        /// Get all Volunteers Data
-        [AcceptVerbs("GET")]
+            /// Get all Volunteers Data
+            [AcceptVerbs("GET")]
         public IHttpActionResult GetAllVolunteers() {
             try  {
                 List<Volunteer> result = new List<Volunteer>();

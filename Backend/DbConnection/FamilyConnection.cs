@@ -13,9 +13,18 @@ namespace Backend.DbConnection {
         public static int InsertFamily(Family f)  {
             int rowsNum = -1;
             try  {
-                int testInt = f.car ? 1 : 0;
+                int house1 = f.house ? 1 : 0;
+                int car1 = f.car ? 1 : 0;
+                int debt1 = f.debt ? 1 : 0;
+                int payChecks1 = f.payChecks ? 1 : 0;
+                int bituahLeumi1 = f.bituahLeumi ? 1 : 0;
+                int bankAccount1 = f.bankAccount ? 1 : 0;
+                int creditCard1 = f.creditCard ? 1 : 0;
+                int copyId1 = f.copyId ? 1 : 0;
+                int rentContract1 = f.rentContract ? 1 : 0;
+              
                 int testing = Convert.ToInt32(f.car);
-                string Query = "INSERT INTO `family_tbl` ( `first_Name`, `last_Name`, `street`, `house_Num`, `floor`, `phone`, `people_Number`, `notes`, `how_Did_You_Hear`, `reason_For_Referral`, `join_Date`, `family_Type`, `basket_Type`, `house`, `car`, `debt`, `pay_Checks`, `bituah_Leumi`, `bank_Account`, `credit_card`, `copy_Id`, `rent_Contract' ) VALUES ('" + f.firstName + "', '" + f.lastName + "', '" + f.street + "', '" + f.houseNum + "', '" + f.floor + "', '" + f.phone + "', '" + f.peopleNumber + "', '" + f.notes + "', '" + f.howDidYouHear + "', '" + f.reasonForReferral + "', '" + f.joinDate.ToString("yyyy-MM-dd") + "', '" + f.familyType + "', '" + f.basketType + "', '" + f.house + "', '" + f.car + "', '" + f.debt + "', '" + f.payChecks + "', '" + f.bituahLeumi + "', '" + f.bankAccount + "', '" + f.creditCard + "', '" + f.copyId + "', '" + f.rentContract + "'); SELECT LAST_INSERT_ID();";
+                string Query = "INSERT INTO `family_tbl` ( `first_Name`, `last_Name`, `street`, `house_Num`, `floor`, `phone`, `people_Number`, `notes`, `how_Did_You_Hear`, `reason_For_Referral`, `join_Date`, `family_Type`, `basket_Type`, `house`, `car`, `debt`, `pay_Checks`, `bituah_Leumi`, `bank_Account`, `credit_card`, `copy_Id`, `rent_Contract' ) VALUES ('" + f.firstName + "', '" + f.lastName + "', '" + f.street + "', '" + f.houseNum + "', '" + f.floor + "', '" + f.phone + "', '" + f.peopleNumber + "', '" + f.notes + "', '" + f.howDidYouHear + "', '" + f.reasonForReferral + "', '" + f.joinDate.ToString("yyyy-MM-dd") + "', '" + f.familyType + "', '" + f.basketType + "', '" + house1 + "', '" + car1 + "', '" + debt1 + "', '" + payChecks1 + "', '" + bituahLeumi1 + "', '" + bankAccount1 + "', '" + creditCard1 + "', '" + copyId1 + "', '" + rentContract1 + "'); SELECT LAST_INSERT_ID();";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
@@ -110,7 +119,7 @@ namespace Backend.DbConnection {
                         familyType = rdr[12].ToString(),
                         basketType = rdr[13].ToString(),
                         house = Boolean.Parse(rdr[14].ToString()),
-                      //  car = Boolean.Parse(rdr[15].ToString()),
+                        car = Boolean.Parse(rdr[15].ToString()),
                         debt = Boolean.Parse(rdr[16].ToString()),
                         payChecks = Boolean.Parse(rdr[17].ToString()),
                         bituahLeumi = Boolean.Parse(rdr[18].ToString()),
