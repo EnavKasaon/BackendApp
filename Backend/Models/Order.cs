@@ -11,5 +11,6 @@ namespace Backend.Models
         public OrderType order_type { get; set; }
         public DateTime order_date { get; set; }
         public DateTime received_date { get; set; }
+        public Boolean received { get; set; }
     }
 }

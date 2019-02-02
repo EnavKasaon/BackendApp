@@ -3,6 +3,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 
@@ -100,6 +101,142 @@ namespace Backend.DbConnection
                 return -1;
             }
         }
+
+        public static int MarkOrderReceived(Order o)
+        {
+            try
+            {
+                DateTime theDate = DateTime.Now;
+                theDate.ToString("yyyy-MM-dd H:mm:ss");
+                string Query = "UPDATE `order_tbl` SET received = !received , received_date = '" + DateTime.Now.ToString("yyyy-MM-dd") + "' WHERE order_id ="+o.order_id+";";
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                MySqlDataReader MyReader2;
+                MyConn2.Open();
+                int rows = MyCommand2.ExecuteNonQuery();
+                
+                MyConn2.Close();
+                return rows;
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+        }
+
+        public static List<Order> GetAllOrdersByType(int ot)
+        {
+            try
+            {
+                string Query = "SELECT * FROM `order_tbl` WHERE order_type_id = '"+ot+"' ;";
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                MySqlDataReader MyReader2;
+                MyConn2.Open();
+                MyReader2 = MyCommand2.ExecuteReader();     // Here our query will be executed and data saved into the database.  
+                List<Order> orders = new List<Order>();
+                Order currentOrder = new Order();
+                CultureInfo provider = CultureInfo.InvariantCulture;
+                while (MyReader2.Read())
+                {
+                    OrderType otp = GetOrderTypeByID(Int32.Parse(MyReader2[1].ToString()));
+                    DateTime da = DateTime.Parse(MyReader2[2].ToString());
+                    DateTime da2 = DateTime.Parse(MyReader2[3].ToString());
+                    currentOrder = new Order()
+                    {
+                        order_id = Int32.Parse(MyReader2[0].ToString()),
+                        order_type = GetOrderTypeByID(Int32.Parse(MyReader2[1].ToString())),
+                        order_date = DateTime.Parse(MyReader2[2].ToString()),
+                        received_date = DateTime.Parse(MyReader2[3].ToString()),
+                        //order_date = DateTime.ParseExact(MyReader2[2].ToString(), "yyyy-MM-dd H:mm:ss",provider),
+                        //received_date = DateTime.ParseExact(MyReader2[3].ToString(), "yyyy-MM-dd H:mm:ss", provider),
+                        received = Convert.ToBoolean(MyReader2[4].ToString())
+                    };
+                    orders.Add(currentOrder);
+                  
+                }
+                MyConn2.Close();
+                return orders;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public static int UpdateType(OrderType ot)
+        {
+            try
+            {
+                string Query = "UPDATE `order_type_tbl` SET `order_type_name`='" + ot.order_type_name + "',`supplier_id`='" + ot.supplier.ID + "' WHERE order_type_id =" + ot.order_type_id + ";";
+                string Query_products = "";
+                //int order_type_id = 0;
+
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MyConn2.Open();
+                MySqlCommand MyCommand2 = MyConn2.CreateCommand();
+                MySqlTransaction myTrans;
+                myTrans = MyConn2.BeginTransaction();
+                MyCommand2.Connection = MyConn2;
+                MyCommand2.Transaction = myTrans;
+                try
+                {
+                    MyCommand2.CommandText = Query;
+                    MySqlDataReader MyReader;
+                    MyCommand2.ExecuteNonQuery();
+                    int deleteProducts = 0;
+                    deleteProducts = DeleteProductsInType(ot.order_type_id); // delete products 
+                    if(deleteProducts == -1)
+                    {
+                        return -1;
+                    }
+                    //order_type_id = Int32.Parse(MyCommand2.LastInsertedId.ToString());
+                    foreach (Product p in ot.products) // update order_type_id in each product before insert
+                    {
+                        p.order_type_id = ot.order_type_id;
+                        Query_products += "INSERT INTO `product_in_order_type_tbl`( `order_type_id`, `product`, `amount`, `comments`) VALUES ('";
+                        Query_products += +p.order_type_id + "','" + p.product_name + "','" + p.amount + "','" + p.comments + "');";
+                    }
+
+                    MyCommand2.CommandText = Query_products;
+                    MyCommand2.ExecuteNonQuery();
+                    myTrans.Commit();
+                    Console.WriteLine("Both records are written to database.");
+                }
+                catch (Exception e)
+                {
+                    try
+                    {
+                        myTrans.Rollback();
+                        Console.WriteLine("An exception of type " + e.GetType() +
+                    " was encountered while inserting the data.");
+                        Console.WriteLine("Neither record was written to database.");
+                    }
+                    catch (SqlException ex)
+                    {
+                        if (myTrans.Connection != null)
+                        {
+                            Console.WriteLine("An exception of type " + ex.GetType() +
+                            " was encountered while attempting to roll back the transaction.");
+                        }
+                    }
+
+
+                }
+                finally
+                {
+                    MyConn2.Close();
+                   // return 1;
+                }
+                
+            }
+            catch (Exception ex)
+            {
+                return -1;
+            }
+            return 1;
+
+        }
+
         /// <summary>
         /// If OrderType name already exist return true
         /// </summary>
@@ -151,6 +288,64 @@ namespace Backend.DbConnection
 
             conn.Close();
             return product;
+        }
+
+        public static int DeleteOrder(int id)
+        {
+            int rowsNum = 0;
+            try
+            {
+                string Query = "DELETE FROM order_tbl WHERE order_id = " + id + ";";
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                MyConn2.Open();
+                rowsNum = MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.  
+                MyConn2.Close();
+                return rowsNum;
+            }
+            catch (Exception ex)
+            {
+                return rowsNum = -1;
+            }
+        }
+
+        public static int DeleteProductsInType(int id)
+        {
+            int rowsNum = 0;
+            try
+            {
+                //string Query = "DELETE FROM order_type_tbl WHERE order_type_id = " + id + ";";
+                string Query = "DELETE FROM `product_in_order_type_tbl` WHERE order_type_id ='" + id + "';";
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                MyConn2.Open();
+                rowsNum = MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.  
+                MyConn2.Close();
+                return rowsNum;
+            }
+            catch (Exception ex)
+            {
+                return rowsNum = -1;
+            }
+        }
+
+        public static int DeleteOrderType(int id)
+        {
+            int rowsNum = 0;
+            try
+            {
+                string Query = "DELETE FROM order_type_tbl WHERE order_type_id = " + id + ";";
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                MyConn2.Open();
+                rowsNum = MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.  
+                MyConn2.Close();
+                return rowsNum;
+            }
+            catch (Exception ex)
+            {
+                return rowsNum = -1;
+            }
         }
 
         public static List<Product> GetProductsInOrderType(int orderTypeID)
