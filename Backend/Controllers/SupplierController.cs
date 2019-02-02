@@ -96,13 +96,15 @@ namespace Backend.Controllers {
             {
                 int result = -1;
                 result = SupplierConnection.UpdateSupplier(s);
-                return Json(result);
+                //  return Json(result);
+                return Json(new { success = true, SuccesMsg = result });
 
             }
             catch (Exception ex)
             {
+                return Json(new { success = false, ErrorMsg = ex.Message });
 
-                return Json(ex.ToString());
+              //  return Json(ex.ToString());
             }
         }
 
