@@ -11,26 +11,26 @@ namespace Backend.DbConnection {
 
         /// Insert new family 
         public static int InsertFamily(Family f)  {
-            int rowsNum = -1;
+          //  int rowsNum = -1;
             try  {
-                int house1 = f.house ? 1 : 0;
-                int car1 = f.car ? 1 : 0;
-                int debt1 = f.debt ? 1 : 0;
-                int payChecks1 = f.payChecks ? 1 : 0;
-                int bituahLeumi1 = f.bituahLeumi ? 1 : 0;
-                int bankAccount1 = f.bankAccount ? 1 : 0;
-                int creditCard1 = f.creditCard ? 1 : 0;
-                int copyId1 = f.copyId ? 1 : 0;
-                int rentContract1 = f.rentContract ? 1 : 0;
+                int house = f.house ? 1 : 0;
+                int car = f.car ? 1 : 0;
+                int debt = f.debt ? 1 : 0;
+                int payChecks = f.payChecks ? 1 : 0;
+                int bituahLeumi = f.bituahLeumi ? 1 : 0;
+                int bankAccount = f.bankAccount ? 1 : 0;
+                int creditCard = f.creditCard ? 1 : 0;
+                int copyId = f.copyId ? 1 : 0;
+                int rentContract = f.rentContract ? 1 : 0;
               
                 int testing = Convert.ToInt32(f.car);
-                string Query = "INSERT INTO `family_tbl` ( `first_Name`, `last_Name`, `street`, `house_Num`, `floor`, `phone`, `people_Number`, `notes`, `how_Did_You_Hear`, `reason_For_Referral`, `join_Date`, `family_Type`, `basket_Type`, `house`, `car`, `debt`, `pay_Checks`, `bituah_Leumi`, `bank_Account`, `credit_card`, `copy_Id`, `rent_Contract' ) VALUES ('" + f.firstName + "', '" + f.lastName + "', '" + f.street + "', '" + f.houseNum + "', '" + f.floor + "', '" + f.phone + "', '" + f.peopleNumber + "', '" + f.notes + "', '" + f.howDidYouHear + "', '" + f.reasonForReferral + "', '" + f.joinDate.ToString("yyyy-MM-dd") + "', '" + f.familyType + "', '" + f.basketType + "', '" + house1 + "', '" + car1 + "', '" + debt1 + "', '" + payChecks1 + "', '" + bituahLeumi1 + "', '" + bankAccount1 + "', '" + creditCard1 + "', '" + copyId1 + "', '" + rentContract1 + "'); SELECT LAST_INSERT_ID();";
+                string Query = "INSERT INTO `family_tbl`( `first_Name`, `last_Name`, `street`, `house_Num`, `floor`, `phone`, `people_Number`, `notes`, `how_Did_You_Hear`, `reason_For_Referral`, `join_Date`, `family_Type`, `basket_Type`, `house`, `car`, `debt`, `pay_Checks`, `bituah_Leumi`, `bank_Account`, `credit_card`, `copy_Id`, `rent_Contract` ) VALUES ('" + f.firstName + "', '" + f.lastName + "', '" + f.street + "', '" + f.houseNum + "', '" + f.floor + "', '" + f.phone + "', '" + f.peopleNumber + "', '" + f.notes + "', '" + f.howDidYouHear + "', '" + f.reasonForReferral + "', '" + f.joinDate.ToString("yyyy-MM-dd") + "', '" + f.familyType + "', '" + f.basketType + "', '" + house + "', '" + car + "', '" + debt + "', '" + payChecks + "', '" + bituahLeumi + "', '" + bankAccount + "', '" + creditCard + "', '" + copyId + "', '" + rentContract + "'); SELECT LAST_INSERT_ID();";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
                 MyConn2.Open();
                 MyReader2 = MyCommand2.ExecuteReader();
-                rowsNum = MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.  
+              //  rowsNum = MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.  
                 int newID = -1;
                 while (MyReader2.Read()) {
                     newID = Int32.Parse(MyReader2[0].ToString());
@@ -43,6 +43,10 @@ namespace Backend.DbConnection {
             }
         }
 
+        internal static object GetAllSuppliers()
+        {
+            throw new NotImplementedException();
+        }
 
         /// Get All Families Data without filtering
         public static List<Family> GetFamilyData()  {

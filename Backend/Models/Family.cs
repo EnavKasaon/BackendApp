@@ -21,14 +21,14 @@ namespace Backend.Models
         public DateTime joinDate { get; set; }
         public string familyType { get; set; }
         public string basketType { get; set; }
-        public Boolean house { get; set; }
-        public Boolean car { get; set; }
-        public Boolean debt { get; set; }
-        public Boolean payChecks { get; set; }
-        public Boolean bituahLeumi { get; set; }
-        public Boolean bankAccount { get; set; }
-        public Boolean creditCard { get; set; }
-        public Boolean copyId { get; set; }
-        public Boolean rentContract { get; set; }
+        public bool house { get; set; } 
+        public bool car { get; set; }
+        public bool debt { get; set; }
+        public bool payChecks { get; set; }
+        public bool bituahLeumi { get; set; }
+        public bool bankAccount { get; set; }
+        public bool creditCard { get; set; }
+        public bool copyId { get; set; }
+        public bool rentContract { get; set; }
     }
 }
