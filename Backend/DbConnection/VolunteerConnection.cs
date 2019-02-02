@@ -36,6 +36,7 @@ namespace Backend.DbConnection {
         /// Get All Volunteers Data without filtering
         public static List<Volunteer> GetVolunteerData()  {
             MySqlConnection conn = new MySqlConnection(MySQLCon.conString);
+            MySqlConnection connect = new MySqlConnection("server=localhost; database=luttop; user=root; password=1234; pooling = false; convert zero datetime=True");
             List<Volunteer> volunteers = new List<Volunteer>();
             try {
                 conn.Open(); //open the connection
@@ -57,9 +58,12 @@ namespace Backend.DbConnection {
                         vPhone = rdr[3].ToString(),
                         //        String s = Convert.ToString(rdr.GetValue(4));
                         //  BirthDate = DateTime.Parse(rdr[4].ToString()),
-                         BirthDate = DateTime.Parse(rdr[4].ToString()),
-                    //    DateTime BirthDate = Convert.ToDateTime(deliveryDate);
+                        //   BirthDate = Convert.ToDateTime(rdr[4].ToString()),
+                        //  BirthDate = DateTime.Parse(dateInput),
 
+                        //    DateTime BirthDate = Convert.ToDateTime(deliveryDate);
+                        //  BirthDate = VolunteerConnection.GetVolunteerByID(Int32.Parse(rdr[4].ToString()))
+                        BirthDate= rdr.GetDateTime(4),
                     VolunteerType = rdr[5].ToString()
 
                     });
@@ -90,7 +94,10 @@ namespace Backend.DbConnection {
                         VolunteerFName = rdr[1].ToString(),
                         VolunteerLName = rdr[2].ToString(),
                         vPhone = rdr[3].ToString(),
-                        BirthDate = DateTime.Parse(rdr[4].ToString()),
+                        // BirthDate = DateTime.Parse(rdr[4].ToString()),
+                        //  BirthDate = Convert.ToDateTime(rdr[4].ToString()),
+                        BirthDate = rdr.GetDateTime(4),
+
                         VolunteerType = rdr[5].ToString()
                     };
                 }
