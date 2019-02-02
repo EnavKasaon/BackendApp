@@ -56,6 +56,94 @@ namespace Backend.Controllers
                 return Json(ex.ToString());
             }
         }
+        [AcceptVerbs("GET", "PUT", "OPTIONS")]
+        public IHttpActionResult MarkOrderReceived([FromBody]Order o)
+        {
+            try
+            {
+                int result = 0;
+                result = OrdersConnection.MarkOrderReceived(o);
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.ToString());
+            }
+        }
+        [AcceptVerbs("GET")]
+        public IHttpActionResult GetOrdersByType(int id)
+        {
+            try
+            {
+                List<Order> result = new List<Order>();
+                result = OrdersConnection.GetAllOrdersByType(id);
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.ToString());
+            }
+        }
+        //[AcceptVerbs("GET", "PUT", "OPTIONS")]
+        [AcceptVerbs("GET")]
+        public IHttpActionResult GetTypeByID(int id)
+        {
+            try
+            {
+                OrderType result = new OrderType();
+                result = OrdersConnection.GetOrderTypeByID(id);
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.ToString());
+            }
+        }
+        [AcceptVerbs("DELETE", "OPTIONS", "PUT")]
+        public IHttpActionResult DeleteOrder(int id)
+        {
+            try
+            {
+                int result = -1;
+                result = OrdersConnection.DeleteOrder(id);
+                return Json(new { success = true, SuccesMsg = result });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, ErrorMsg = ex.Message });
+            }
+        }
+        [AcceptVerbs("DELETE", "OPTIONS", "PUT")]
+        public IHttpActionResult DeleteType(int id)
+        {
+            try
+            {
+                int result = -1;
+                result = OrdersConnection.DeleteOrderType(id);
+                //  return Json(result);
+                return Json(new { success = true, SuccesMsg = result });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, ErrorMsg = ex.Message });
+                //   return Json(ex.ToString());
+            }
+        }
+        [AcceptVerbs("PUT", "OPTIONS")]
+        public IHttpActionResult UpdateType([FromBody]OrderType ot)
+        {
+            try
+            {
+                int result = -1;
+                result = OrdersConnection.UpdateType(ot);
+                return Json(new { success = true, SuccesMsg = result });
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { success = false, ErrorMsg = ex.Message });
+            }
+        }
 
     }
 }
