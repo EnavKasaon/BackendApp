@@ -13,7 +13,7 @@ namespace Backend.Models
         public string street { get; set; }
         public string houseNum { get; set; }
         public int floor { get; set; }
-        public int phone { get; set; }
+        public string phone { get; set; }
         public int peopleNumber { get; set; }
         public string notes { get; set; }
         public string howDidYouHear { get; set; }
