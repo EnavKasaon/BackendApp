@@ -56,9 +56,16 @@ namespace Backend.DbConnection {
                 conn.Open(); //open the connection
                 string sql = "SELECT * FROM family_tbl";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
+              //  MySqlDataReader rdr = cmd.ExecuteReader();
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MySqlCommand MyCommand2 = new MySqlCommand(sql, MyConn2);
+                MySqlDataReader rdr;
+                MyConn2.Open();
+                rdr = MyCommand2.ExecuteReader();     // Here our query will be executed and data saved into the database.  
 
-                while (rdr.Read()) {
+            //    while (MyReader2.Read())
+            //    {
+                   while (rdr.Read()) {
                     families.Add(new Family()  {
                         familyId =Int32.Parse(rdr[0].ToString()),
                         firstName = rdr[1].ToString(),
@@ -82,7 +89,8 @@ namespace Backend.DbConnection {
                         bankAccount = Boolean.Parse(rdr[19].ToString()),
                         creditCard = Boolean.Parse(rdr[20].ToString()),
                         copyId = Boolean.Parse(rdr[21].ToString()),
-                        rentContract = Boolean.Parse(rdr[22].ToString())
+                        //  rentContract = Boolean.Parse(rdr[22].ToString())
+                        rentContract = Convert.ToBoolean(rdr[22].ToString())
 
                     });
                 }
@@ -104,9 +112,15 @@ namespace Backend.DbConnection {
                 conn.Open(); //open the connection
                 string sql = "SELECT * FROM `family_tbl` WHERE 	family_Id =" + id + ";";
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
+               // MySqlDataReader rdr = cmd.ExecuteReader();
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MySqlCommand MyCommand2 = new MySqlCommand(sql, MyConn2);
+                MySqlDataReader rdr;
+                MyConn2.Open();
+                rdr = MyCommand2.ExecuteReader();     // Here our query will be executed and data saved into the database.  
 
-                while (rdr.Read())   {
+               // while (MyReader2.Read()) { 
+                    while (rdr.Read())   {
                     familyRequested = new Family() {
                         familyId = Int32.Parse(rdr[0].ToString()),
                         firstName = rdr[1].ToString(),
@@ -130,7 +144,8 @@ namespace Backend.DbConnection {
                         bankAccount = Boolean.Parse(rdr[19].ToString()),
                         creditCard = Boolean.Parse(rdr[20].ToString()),
                         copyId = Boolean.Parse(rdr[21].ToString()),
-                        rentContract = Boolean.Parse(rdr[22].ToString())
+                       // rentContract = Boolean.Parse(rdr[22].ToString())
+                        rentContract = Convert.ToBoolean(rdr[22].ToString())
                     };
                 }
                 rdr.Close();

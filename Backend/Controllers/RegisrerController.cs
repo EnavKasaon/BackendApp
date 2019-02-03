@@ -13,7 +13,7 @@ namespace Backend.Controllers {
     {
         /// Insert new User 
         [AcceptVerbs("POST", "GET", "OPTIONS", "PUT")]
-        public IHttpActionResult InsertUser([FromBody]User us)
+        public IHttpActionResult Insert([FromBody]User us)
         {
 
             try
