@@ -70,6 +70,20 @@ namespace Backend.Controllers
                 return Json(ex.ToString());
             }
         }
+        [AcceptVerbs("GET", "PUT", "OPTIONS")]
+        public IHttpActionResult CheckIfTypeNameExists(string name)
+        {
+            try
+            {
+                bool result = false;
+                result = OrdersConnection.CheckIfOrderTypeNameExist(name);
+                return Json(new { success = true, SuccesMsg = result });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, SuccesMsg = ex.Message });
+            }
+        }
         [AcceptVerbs("GET")]
         public IHttpActionResult GetOrdersByType(int id)
         {

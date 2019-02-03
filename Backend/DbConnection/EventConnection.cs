@@ -45,6 +45,8 @@ namespace Backend.DbConnection
 
                 while (rdr.Read())
                 {
+                    DateTime dt = DateTime.Parse(rdr[2].ToString());
+                    string st = dt.ToString();
                     tasks.Add(new Event()
                     {
                         event_id = Int32.Parse(rdr[0].ToString()),
