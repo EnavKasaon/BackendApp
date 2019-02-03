@@ -471,6 +471,7 @@ namespace Backend.DbConnection
                 }
                 type.products = GetProductsInOrderType(type.order_type_id); // get all product of orderType
                 rdr.Close();
+
             }
             catch (Exception)
             {

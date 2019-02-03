@@ -36,26 +36,22 @@ namespace Backend.DbConnection {
         /// Get All Volunteers Data without filtering
         public static List<Volunteer> GetVolunteerData()  {
             MySqlConnection conn = new MySqlConnection(MySQLCon.conString);
-            MySqlConnection connect = new MySqlConnection("server=localhost; database=luttop; user=root; password=1234; pooling = false; convert zero datetime=True");
             List<Volunteer> volunteers = new List<Volunteer>();
             try {
                 conn.Open(); //open the connection
-                string sql = "SELECT * FROM volunteers_tbl";
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-
-                //   if (!String.IsNullOrEmpty(s))
-                //  {
-                //    DateTime BirthDate = DateTime.Parse(s);
-                //}
-              //  string deliveryDate = (string)command.ExecuteScalar();
-
-                while (rdr.Read())  {
+                string Query = "SELECT * FROM volunteers_tbl";
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                MySqlDataReader MyReader2;
+                MyConn2.Open();
+                MyReader2 = MyCommand2.ExecuteReader();     // Here our query will be executed and data saved into the database.  
+                while (MyReader2.Read())
+                {
                     volunteers.Add(new Volunteer() {
-                        VolunteerId = Int32.Parse(rdr[0].ToString()),
-                        VolunteerFName = rdr[1].ToString(),
-                        VolunteerLName = rdr[2].ToString(),
-                        vPhone = rdr[3].ToString(),
+                        VolunteerId = Int32.Parse(MyReader2[0].ToString()),
+                        VolunteerFName = MyReader2[1].ToString(),
+                        VolunteerLName = MyReader2[2].ToString(),
+                        vPhone = MyReader2[3].ToString(),
                         //        String s = Convert.ToString(rdr.GetValue(4));
                         //  BirthDate = DateTime.Parse(rdr[4].ToString()),
                         //   BirthDate = Convert.ToDateTime(rdr[4].ToString()),
@@ -63,13 +59,14 @@ namespace Backend.DbConnection {
 
                         //    DateTime BirthDate = Convert.ToDateTime(deliveryDate);
                         //  BirthDate = VolunteerConnection.GetVolunteerByID(Int32.Parse(rdr[4].ToString()))
-                        BirthDate= rdr.GetDateTime(4),
-                    VolunteerType = rdr[5].ToString()
+                        //  BirthDate = DateTime.Parse(rdr[4].ToString()),
+                        BirthDate = DateTime.Parse(MyReader2[4].ToString()),
 
+                        VolunteerType = MyReader2[5].ToString()
                     });
 
                 }
-                rdr.Close();  }
+                MyConn2.Close();  }
             catch (Exception)  {
                 throw;
             }
@@ -84,24 +81,29 @@ namespace Backend.DbConnection {
             Volunteer volunteerRequested = null;
             try {
                 conn.Open(); //open the connection
-                string sql = "SELECT * FROM `volunteers_tbl` WHERE 	volunteer_id =" + id + ";";
-                MySqlCommand cmd = new MySqlCommand(sql, conn);
-                MySqlDataReader rdr = cmd.ExecuteReader();
-
-                while (rdr.Read())  {
+                string Query = "SELECT * FROM `volunteers_tbl` WHERE 	volunteer_id =" + id + ";";
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                MySqlDataReader MyReader2;
+                MyConn2.Open();
+                MyReader2 = MyCommand2.ExecuteReader();     // Here our query will be executed and data saved into the database.  
+                while (MyReader2.Read()) { 
+                 //   while (rdr.Read())  {
                     volunteerRequested = new Volunteer()  {
-                        VolunteerId = Int32.Parse(rdr[0].ToString()),
-                        VolunteerFName = rdr[1].ToString(),
-                        VolunteerLName = rdr[2].ToString(),
-                        vPhone = rdr[3].ToString(),
+                        VolunteerId = Int32.Parse(MyReader2[0].ToString()),
+                        VolunteerFName = MyReader2[1].ToString(),
+                        VolunteerLName = MyReader2[2].ToString(),
+                        vPhone = MyReader2[3].ToString(),
+                       // BirthDate = DateTime.Parse(MyReader2[2].ToString()),
                         // BirthDate = DateTime.Parse(rdr[4].ToString()),
                         //  BirthDate = Convert.ToDateTime(rdr[4].ToString()),
-                        BirthDate = rdr.GetDateTime(4),
+                       // BirthDate = DateTime.Parse(rdr[4].ToString()),
+                        BirthDate = DateTime.Parse(MyReader2[4].ToString()),
 
-                        VolunteerType = rdr[5].ToString()
+                        VolunteerType = MyReader2[5].ToString()
                     };
                 }
-                rdr.Close(); }
+                MyConn2.Close(); }
             catch (Exception) {
                 throw;
             }
