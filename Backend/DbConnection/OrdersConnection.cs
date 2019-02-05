@@ -146,8 +146,8 @@ namespace Backend.DbConnection
                     {
                         order_id = Int32.Parse(MyReader2[0].ToString()),
                         order_type = GetOrderTypeByID(Int32.Parse(MyReader2[1].ToString())),
-                        order_date = DateTime.Parse(MyReader2[2].ToString()),
-                        received_date = DateTime.Parse(MyReader2[3].ToString()),
+                        order_date = DateTime.Parse(MyReader2[2].ToString().Replace("T"," ")),
+                        received_date = DateTime.Parse(MyReader2[3].ToString().Replace("T", " ")),
                         //order_date = DateTime.ParseExact(MyReader2[2].ToString(), "yyyy-MM-dd H:mm:ss",provider),
                         //received_date = DateTime.ParseExact(MyReader2[3].ToString(), "yyyy-MM-dd H:mm:ss", provider),
                         received = Convert.ToBoolean(MyReader2[4].ToString())
