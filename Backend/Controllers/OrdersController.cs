@@ -71,8 +71,8 @@ namespace Backend.Controllers
             }
         }
         [AcceptVerbs("GET", "PUT", "OPTIONS")]
-        public IHttpActionResult CheckIfTypeNameExists(string name)
-        {
+        public IHttpActionResult CheckIfTypeNameExists([FromBody]string name)
+       {
             try
             {
                 bool result = false;
@@ -81,7 +81,7 @@ namespace Backend.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, SuccesMsg = ex.Message });
+                return Json(new { success = false, SuccesMsg = false });
             }
         }
         [AcceptVerbs("GET")]
@@ -124,7 +124,7 @@ namespace Backend.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, ErrorMsg = ex.Message });
+                return Json(new { success = false, SuccesMsg = -1 });
             }
         }
         [AcceptVerbs("DELETE", "OPTIONS", "PUT")]
@@ -139,7 +139,7 @@ namespace Backend.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, ErrorMsg = ex.Message });
+                return Json(new { success = false, SuccesMsg = -1 });
                 //   return Json(ex.ToString());
             }
         }
@@ -155,7 +155,7 @@ namespace Backend.Controllers
             catch (Exception ex)
             {
 
-                return Json(new { success = false, ErrorMsg = ex.Message });
+                return Json(new { success = false, SuccesMsg = -1 });
             }
         }
 

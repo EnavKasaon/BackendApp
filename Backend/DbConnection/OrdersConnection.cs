@@ -452,7 +452,7 @@ namespace Backend.DbConnection
         public static OrderType GetOrderTypeByName(string name)
         {
             MySqlConnection conn = new MySqlConnection(MySQLCon.conString);
-            OrderType type = new OrderType();
+            OrderType type = null;
             try
             {
                 conn.Open(); //open the connection
@@ -469,7 +469,10 @@ namespace Backend.DbConnection
                         supplier = SupplierConnection.GetSupplierByID(Int32.Parse(rdr[2].ToString()))
                     };
                 }
-                type.products = GetProductsInOrderType(type.order_type_id); // get all product of orderType
+                if (type.order_type_id != 0)
+                {
+                    type.products = GetProductsInOrderType(type.order_type_id); // get all product of orderType
+                }
                 rdr.Close();
 
             }

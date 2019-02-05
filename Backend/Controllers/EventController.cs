@@ -23,7 +23,7 @@ namespace Backend.Controllers
             catch (Exception ex)
             {
 
-                return Json(new { success = false, ErrorMsg = ex.Message });
+                return Json(new { success = false, SuccesMsg = -1 });
             }
         }
 
@@ -53,8 +53,23 @@ namespace Backend.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { success = false, ErrorMsg = ex.Message });
+                return Json(new { success = false, SuccesMsg = -1 });
                 //   return Json(ex.ToString());
+            }
+        }
+        [AcceptVerbs("PUT", "OPTIONS")]
+        public IHttpActionResult UpdateEvent([FromBody]Event e)
+        {
+            try
+            {
+                int result = -1;
+                result = EventConnection.UpdateEvent(e);
+                return Json(new { success = true, SuccesMsg = result });
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { success = false, SuccesMsg = -1 });
             }
         }
     }
