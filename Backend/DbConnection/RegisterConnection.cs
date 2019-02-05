@@ -22,7 +22,8 @@ namespace Backend.DbConnection
                         userID = Int32.Parse(rdr[0].ToString()),
                         userName = rdr[1].ToString(),
                         Password = rdr[2].ToString(),
-                        Email = rdr[3].ToString()
+                        Email = rdr[3].ToString(),
+                        confirmPassword = rdr[4].ToString()
                     });
                 }
                 rdr.Close();  }
@@ -48,7 +49,9 @@ namespace Backend.DbConnection
                         userID = Int32.Parse(rdr[0].ToString()),
                         userName = rdr[1].ToString(),
                         Password = rdr[2].ToString(),
-                        Email = rdr[3].ToString()
+                        Email = rdr[3].ToString(),
+                        confirmPassword = rdr[4].ToString()
+
                     };
                 }
                 rdr.Close();
