@@ -23,7 +23,6 @@ namespace Backend.DbConnection {
                 int copyId = f.copyId ? 1 : 0;
                 int rentContract = f.rentContract ? 1 : 0;
               
-                int testing = Convert.ToInt32(f.car);
                 string Query = "INSERT INTO `family_tbl`( `first_Name`, `last_Name`, `street`, `house_Num`, `floor`, `phone`, `people_Number`, `notes`, `how_Did_You_Hear`, `reason_For_Referral`, `join_Date`, `family_Type`, `basket_Type`, `house`, `car`, `debt`, `pay_Checks`, `bituah_Leumi`, `bank_Account`, `credit_card`, `copy_Id`, `rent_Contract` ) VALUES ('" + f.firstName + "', '" + f.lastName + "', '" + f.street + "', '" + f.houseNum + "', '" + f.floor + "', '" + f.phone + "', '" + f.peopleNumber + "', '" + f.notes + "', '" + f.howDidYouHear + "', '" + f.reasonForReferral + "', '" + f.joinDate.ToString("yyyy-MM-dd") + "', '" + f.familyType + "', '" + f.basketType + "', '" + house + "', '" + car + "', '" + debt + "', '" + payChecks + "', '" + bituahLeumi + "', '" + bankAccount + "', '" + creditCard + "', '" + copyId + "', '" + rentContract + "'); SELECT LAST_INSERT_ID();";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
@@ -78,7 +77,7 @@ namespace Backend.DbConnection {
                         notes = rdr[8].ToString(),
                         howDidYouHear = rdr[9].ToString(),
                         reasonForReferral = rdr[10].ToString(),
-                      //  joinDate = DateTime.Parse(rdr[11].ToString()),
+                        joinDate = DateTime.Parse(rdr[11].ToString()),
                         familyType = rdr[12].ToString(),
                         basketType = rdr[13].ToString(),
                         house = Boolean.Parse(rdr[14].ToString()),
@@ -89,7 +88,7 @@ namespace Backend.DbConnection {
                         bankAccount = Boolean.Parse(rdr[19].ToString()),
                         creditCard = Boolean.Parse(rdr[20].ToString()),
                         copyId = Boolean.Parse(rdr[21].ToString()),
-                        //  rentContract = Boolean.Parse(rdr[22].ToString())
+                        // rentContract = Boolean.Parse(rdr[22].ToString())
                         rentContract = Convert.ToBoolean(rdr[22].ToString())
 
                     });
@@ -133,7 +132,7 @@ namespace Backend.DbConnection {
                         notes = rdr[8].ToString(),
                         howDidYouHear = rdr[9].ToString(),
                         reasonForReferral = rdr[10].ToString(),
-                     //   joinDate = DateTime.Parse(rdr[11].ToString()),
+                        joinDate = DateTime.Parse(rdr[11].ToString()),
                         familyType = rdr[12].ToString(),
                         basketType = rdr[13].ToString(),
                         house = Boolean.Parse(rdr[14].ToString()),
@@ -161,8 +160,16 @@ namespace Backend.DbConnection {
         public static int UpdateFamily(Family fa)   {
             int rowsNum = -1;
             try   {
-                string Query = "UPDATE `family_tbl` SET `first_Name`, `last_Name`, `street`, `house_Num`, `floor`, `phone`, `people_Number`, `notes`, `how_Did_You_Hear`, `reason_For_Referral`, `join_Date`, `family_Type`, `basket_Type`, `house`, `car`, `debt`, `pay_Checks`, `bituah_Leumi`, `bank_Account`, `credit_card`, `copy_Id`, `rent_Contract' ) VALUES ('" + fa.firstName + "', '" + fa.lastName + "', '" + fa.street + "', '" + fa.houseNum + "', '" + fa.floor + "', '" + fa.phone + "', '" + fa.peopleNumber + "', '" + fa.notes + "', '" + fa.howDidYouHear + "', '" + fa.reasonForReferral + "', '" + fa.joinDate.ToString("yyyy-MM-dd") + "', '" + fa.familyType + "', '" + fa.basketType + "', '" + fa.house + "', '" + fa.car + "', '" + fa.debt + "', '" + fa.payChecks + "', '" + fa.bituahLeumi + "', '" + fa.bankAccount + "', '" + fa.creditCard + "', '" + fa.copyId + "', '" + fa.rentContract + "');";
-                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                int house = fa.house ? 1 : 0;
+                int car = fa.car ? 1 : 0;
+                int debt = fa.debt ? 1 : 0;
+                int payChecks = fa.payChecks ? 1 : 0;
+                int bituahLeumi = fa.bituahLeumi ? 1 : 0;
+                int bankAccount = fa.bankAccount ? 1 : 0;
+                int creditCard = fa.creditCard ? 1 : 0;
+                int copyId = fa.copyId ? 1 : 0;
+                int rentContract = fa.rentContract ? 1 : 0;
+                string Query = "UPDATE `family_tbl` SET `first_Name`= '" + fa.firstName + "',`last_Name`= '" + fa.lastName + "',`street`= '" + fa.street + "',`house_Num`= '" + fa.houseNum + "',`floor`= '" + fa.floor + "', `phone`= '" + fa.phone + "',`people_Number`= '" + fa.peopleNumber + "',`notes`= '" + fa.notes + "',`how_Did_You_Hear`= '" + fa.howDidYouHear + "', `reason_For_Referral`= '" + fa.reasonForReferral + "',`join_Date`= '" + fa.joinDate.ToString("yyyy-MM-dd") + "',`family_Type`= '" + fa.familyType + "',`basket_Type`= '" + fa.basketType + "',`house`= '" + house + "', `car`= '" + car + "',`debt`= '" + debt + "',`pay_Checks`= '" + payChecks + "',`bituah_Leumi`= '" + bituahLeumi + "', `bank_Account`= '" + bankAccount + "',`credit_card`= '" + creditCard + "',`copy_Id`= '" + copyId + "',`rent_Contract`= '" + rentContract + "' WHERE family_Id = " + fa.familyId + "; "; MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
                 MyConn2.Open();
