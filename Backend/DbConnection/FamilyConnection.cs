@@ -78,7 +78,7 @@ namespace Backend.DbConnection {
                         notes = rdr[8].ToString(),
                         howDidYouHear = rdr[9].ToString(),
                         reasonForReferral = rdr[10].ToString(),
-                      //  joinDate = DateTime.Parse(rdr[11].ToString()),
+                        joinDate = DateTime.Parse(rdr[11].ToString()),
                         familyType = rdr[12].ToString(),
                         basketType = rdr[13].ToString(),
                         house = Boolean.Parse(rdr[14].ToString()),
@@ -89,7 +89,7 @@ namespace Backend.DbConnection {
                         bankAccount = Boolean.Parse(rdr[19].ToString()),
                         creditCard = Boolean.Parse(rdr[20].ToString()),
                         copyId = Boolean.Parse(rdr[21].ToString()),
-                        //  rentContract = Boolean.Parse(rdr[22].ToString())
+                        // rentContract = Boolean.Parse(rdr[22].ToString())
                         rentContract = Convert.ToBoolean(rdr[22].ToString())
 
                     });
@@ -133,7 +133,7 @@ namespace Backend.DbConnection {
                         notes = rdr[8].ToString(),
                         howDidYouHear = rdr[9].ToString(),
                         reasonForReferral = rdr[10].ToString(),
-                     //   joinDate = DateTime.Parse(rdr[11].ToString()),
+                        joinDate = DateTime.Parse(rdr[11].ToString()),
                         familyType = rdr[12].ToString(),
                         basketType = rdr[13].ToString(),
                         house = Boolean.Parse(rdr[14].ToString()),
