@@ -255,23 +255,17 @@ namespace Backend.DbConnection
                             " was encountered while attempting to roll back the transaction.");
                         }
                     }
-
-
                 }
-                finally
-                {
+                finally  {
                     MyConn2.Close();
                    // return 1;
                 }
-                
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex)  {
                 return -1;
             }
             return 1;
-
-        }
+            }
 
         /// <summary>
         /// If OrderType name already exist return true
@@ -305,10 +299,8 @@ namespace Backend.DbConnection
                 MySqlCommand cmd = new MySqlCommand(sql, conn);
                 MySqlDataReader rdr = cmd.ExecuteReader();
 
-                while (rdr.Read())
-                {
-                    product = new Product()
-                    {
+                while (rdr.Read())  {
+                    product = new Product()  {
                         order_type_id = Int32.Parse(rdr[0].ToString()),
                         product_name = rdr[1].ToString(),
                         amount = Int32.Parse(rdr[2].ToString()),
@@ -317,8 +309,7 @@ namespace Backend.DbConnection
                 }
                 rdr.Close();
             }
-            catch (Exception)
-            {
+            catch (Exception)  {
                 throw;
             }
 
@@ -326,11 +317,12 @@ namespace Backend.DbConnection
             return product;
         }
 
-        public static int DeleteOrder(int id)
-        {
+
+
+        // Delete Order
+        public static int DeleteOrder(int id)  {
             int rowsNum = 0;
-            try
-            {
+            try {
                 string Query = "DELETE FROM order_tbl WHERE order_id = " + id + ";";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
@@ -339,17 +331,15 @@ namespace Backend.DbConnection
                 MyConn2.Close();
                 return rowsNum;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex)  {
                 return rowsNum = -1;
             }
         }
 
-        public static int DeleteProductsInType(int id)
-        {
+        // delete an product in type
+        public static int DeleteProductsInType(int id)  {
             int rowsNum = 0;
-            try
-            {
+            try  {
                 //string Query = "DELETE FROM order_type_tbl WHERE order_type_id = " + id + ";";
                 string Query = "DELETE FROM `product_in_order_type_tbl` WHERE order_type_id ='" + id + "';";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
@@ -359,17 +349,16 @@ namespace Backend.DbConnection
                 MyConn2.Close();
                 return rowsNum;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 return rowsNum = -1;
             }
         }
 
-        public static int DeleteOrderType(int id)
-        {
+
+        // Delete Order Type
+        public static int DeleteOrderType(int id)  {
             int rowsNum = 0;
-            try
-            {
+            try  {
                 string Query = "DELETE FROM order_type_tbl WHERE order_type_id = " + id + ";";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
@@ -378,11 +367,11 @@ namespace Backend.DbConnection
                 MyConn2.Close();
                 return rowsNum;
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex)  {
                 return rowsNum = -1;
             }
         }
+
 
         public static List<Product> GetProductsInOrderType(int orderTypeID)
         {

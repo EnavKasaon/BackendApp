@@ -10,7 +10,7 @@ using System.Web.Http;
 
 namespace Backend.Controllers
 {
-    public class OrdersController : ApiController
+    public class OrdersController : ApiController 
     {
         [AcceptVerbs("POST", "GET", "OPTIONS", "PUT")]
         public IHttpActionResult InsertType([FromBody]OrderType ot)
