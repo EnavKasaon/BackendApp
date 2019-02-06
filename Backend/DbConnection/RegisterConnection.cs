@@ -51,7 +51,6 @@ namespace Backend.DbConnection
                         Password = rdr[2].ToString(),
                         Email = rdr[3].ToString(),
                         confirmPassword = rdr[4].ToString()
-
                     };
                 }
                 rdr.Close();
@@ -66,7 +65,7 @@ namespace Backend.DbConnection
         /// add new user to DB
         public static int InsertUser(User u)   {
             try  {
-                string Query = "INSERT INTO `login_tbl`( `user_name`, `password`, `email`) VALUES ('" + u.userName + "','" + u.Password + "','" + u.Email + "'); SELECT LAST_INSERT_ID();";
+                string Query = "INSERT INTO `login_tbl`( `user_name`, `password`, `email`, `confirmPassword`) VALUES ('" + u.userName + "','" + u.Password + "','" + u.Email + "','" + u.confirmPassword + "'); SELECT LAST_INSERT_ID();";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
@@ -83,6 +82,50 @@ namespace Backend.DbConnection
 
         internal static object GetAllGetAllUsers() {
             throw new NotImplementedException();
+        }
+
+
+
+        // Get user by email
+        public static User GetUserByEmail(string email) {
+            MySqlConnection conn = new MySqlConnection(MySQLCon.conString);
+            User user = null;
+            try  {
+                conn.Open(); //open the connection
+                string sql = "SELECT * FROM `login_tbl` WHERE email ='" + email + "';";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+
+                while (rdr.Read()) {
+                    user = new User()  {
+                        userID = Int32.Parse(rdr[0].ToString()),
+                        userName = rdr[1].ToString(),
+                        Password = rdr[2].ToString(),
+                        Email = rdr[3].ToString(),
+                        confirmPassword = rdr[4].ToString()
+                    };
+                }
+                if (user.userID != 0)  {
+                }
+                rdr.Close();
+            }
+            catch (Exception)  {
+                throw;
+            }
+            conn.Close();
+            return user;
+        }
+
+
+
+
+        // Check If user'd email Exist
+        public static Boolean CheckIfEmailExist(string email) {
+            User alreadyExist = GetUserByEmail(email);
+            if (alreadyExist != null) {
+                return true;
+            }
+            return false;
         }
 
 
