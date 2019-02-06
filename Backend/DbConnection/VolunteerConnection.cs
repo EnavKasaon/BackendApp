@@ -33,6 +33,22 @@ namespace Backend.DbConnection {
         {
             throw new NotImplementedException();
         }
+        public static List<Volunteer> GetTodayBirthdays()
+        {
+            List<Volunteer> volunteers = new List<Volunteer>();
+            volunteers = GetVolunteerData(); // get all volunteers
+            List<Volunteer> volunteersToday = new List<Volunteer>();
+            foreach (Volunteer v in volunteers)
+            {
+                DateTime current= EventConnection.ChangeYear(v.BirthDate, DateTime.Now.Year);
+                if (current.Date.Equals(DateTime.Now.Date)){
+                    volunteersToday.Add(v);
+                }
+            }
+            return volunteersToday;
+        }
+
+       
         /// Get All Volunteers Data without filtering
         public static List<Volunteer> GetVolunteerData()  {
             MySqlConnection conn = new MySqlConnection(MySQLCon.conString);

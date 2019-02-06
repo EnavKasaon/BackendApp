@@ -95,6 +95,7 @@ namespace Backend.DbConnection
             conn.Close();
             return birthdays;
         }
+        
 
         public static List<Event> GetAll()
         {

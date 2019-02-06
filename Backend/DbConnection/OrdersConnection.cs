@@ -124,6 +124,44 @@ namespace Backend.DbConnection
             }
         }
 
+        public static List<Order> GetAllOrders()
+        {
+            try
+            {
+                string Query = "SELECT * FROM `order_tbl` ;";
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                MySqlDataReader MyReader2;
+                MyConn2.Open();
+                MyReader2 = MyCommand2.ExecuteReader();     // Here our query will be executed and data saved into the database.  
+                List<Order> orders = new List<Order>();
+                Order currentOrder = new Order();
+                CultureInfo provider = CultureInfo.InvariantCulture;
+                while (MyReader2.Read())
+                {
+                    OrderType otp = GetOrderTypeByID(Int32.Parse(MyReader2[1].ToString()));
+                    DateTime da = DateTime.Parse(MyReader2[2].ToString());
+                    DateTime da2 = DateTime.Parse(MyReader2[3].ToString());
+                    currentOrder = new Order()
+                    {
+                        order_id = Int32.Parse(MyReader2[0].ToString()),
+                        order_type = GetOrderTypeByID(Int32.Parse(MyReader2[1].ToString())),
+                        order_date = DateTime.Parse(DateTime.Parse(MyReader2[2].ToString()).ToString("yyyy-MM-dd HH:mm")),
+                        received_date = DateTime.Parse(DateTime.Parse(MyReader2[3].ToString()).ToString("yyyy-MM-dd HH:mm")),
+                        received = Convert.ToBoolean(MyReader2[4].ToString())
+                    };
+                    orders.Add(currentOrder);
+
+                }
+                MyConn2.Close();
+                return orders;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         public static List<Order> GetAllOrdersByType(int ot)
         {
             try
@@ -146,10 +184,8 @@ namespace Backend.DbConnection
                     {
                         order_id = Int32.Parse(MyReader2[0].ToString()),
                         order_type = GetOrderTypeByID(Int32.Parse(MyReader2[1].ToString())),
-                        order_date = DateTime.Parse(MyReader2[2].ToString().Replace("T"," ")),
-                        received_date = DateTime.Parse(MyReader2[3].ToString().Replace("T", " ")),
-                        //order_date = DateTime.ParseExact(MyReader2[2].ToString(), "yyyy-MM-dd H:mm:ss",provider),
-                        //received_date = DateTime.ParseExact(MyReader2[3].ToString(), "yyyy-MM-dd H:mm:ss", provider),
+                        order_date = DateTime.Parse(DateTime.Parse(MyReader2[2].ToString()).ToString("yyyy-MM-dd HH:mm")),
+                        received_date = DateTime.Parse(DateTime.Parse(MyReader2[3].ToString()).ToString("yyyy-MM-dd HH:mm")),
                         received = Convert.ToBoolean(MyReader2[4].ToString())
                     };
                     orders.Add(currentOrder);

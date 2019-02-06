@@ -98,6 +98,21 @@ namespace Backend.Controllers
                 return Json(ex.ToString());
             }
         }
+        [AcceptVerbs("GET")]
+        public IHttpActionResult GetAllOrders()
+        {
+            try
+            {
+                List<Order> result = new List<Order>();
+                result = OrdersConnection.GetAllOrders();
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.ToString());
+            }
+        }
+
         //[AcceptVerbs("GET", "PUT", "OPTIONS")]
         [AcceptVerbs("GET")]
         public IHttpActionResult GetTypeByID(int id)
