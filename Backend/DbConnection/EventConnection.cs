@@ -13,7 +13,7 @@ namespace Backend.DbConnection
         {
             try
             {
-                string Query = "INSERT INTO `events_tbl` ( `event_desc`, `start_date`, `end_date`, `color`) VALUES ('" + e.event_desc + "','"+ e.start_date.ToString("yyyy-MM-dd H:mm:ss") + "','" + e.end_date.ToString("yyyy-MM-dd H:mm:ss") + "','" + e.color + "'); SELECT LAST_INSERT_ID();";
+                string Query = "INSERT INTO `events_tbl` ( `event_desc`, `start_date`, `end_date`, `color`) VALUES ('" + e.event_desc + "','"+ e.start_date.ToString("yyyy-MM-dd HH:mm") + "','" + e.end_date.ToString("yyyy-MM-dd HH:mm") + "','" + e.color + "'); SELECT LAST_INSERT_ID();";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
@@ -38,7 +38,7 @@ namespace Backend.DbConnection
             try
             {
                 
-                string Query = "UPDATE `events_tbl` SET `event_desc` = '"+e.event_desc+ "' , start_date = '" + e.start_date.ToString("yyyy-MM-dd H:mm:ss") + "' , `end_date` = '"+e.end_date.ToString("yyyy-MM-dd H:mm:ss") + "' , `color` ='" + e.color+"' WHERE event_id =" + e.event_id + ";";
+                string Query = "UPDATE `events_tbl` SET `event_desc` = '"+e.event_desc+ "' , start_date = '" + e.start_date.ToString("yyyy-MM-dd HH:mm") + "' , `end_date` = '"+e.end_date.ToString("yyyy-MM-dd HH:mm") + "' , `color` ='" + e.color+"' WHERE event_id =" + e.event_id + ";";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
