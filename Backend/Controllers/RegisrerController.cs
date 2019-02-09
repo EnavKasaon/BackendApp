@@ -67,20 +67,5 @@ namespace Backend.Controllers {
             }
         }
 
-        /// Get User by Email, if doesnt exists return null
-        //   [AcceptVerbs("GET")]
-        //   public IHttpActionResult GetUserByEmail(string Email)  {
-        //     try {
-        //       User result = new User();
-        //     result = RegisterConnection.GetUserByEmail(Email);
-        //     r= "There is "
-        //     return Json();
-        //     }
-        //     catch (Exception ex)  {
-        //      return Json(new { success = false, ErrorMsg = ex.Message });
-        //   }
-        //      }
-
-
     }
 }
