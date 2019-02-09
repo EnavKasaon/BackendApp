@@ -38,6 +38,22 @@ namespace Backend.Controllers {
             }
         }
 
+        /// Get all Volunteers Data
+        [AcceptVerbs("GET")]
+        public IHttpActionResult GetTodayBirtdayVolunteers()
+        {
+            try
+            {
+                List<Volunteer> result = new List<Volunteer>();
+                result = VolunteerConnection.GetTodayBirthdays();
+                return Json(result);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.ToString());
+            }
+        }
+
         /// Get Volunteer by ID, if doesnt exists return null
         [AcceptVerbs("GET")]
         public IHttpActionResult GetVolunteerByID(int id)  {
