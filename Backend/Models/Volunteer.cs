@@ -15,7 +15,8 @@ namespace Backend.Models
         public string vPhone { get; set; }
         public DateTime BirthDate { get; set; }
         public string VolunteerType { get; set; }
-        
-       
+        public string IdNum { get; set; }
+
+
     }
 }

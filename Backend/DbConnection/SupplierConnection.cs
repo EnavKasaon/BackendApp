@@ -29,7 +29,8 @@ namespace Backend.DbConnection
                         ContactPerson = rdr[4].ToString(),
                         ContactPhone = rdr[5].ToString(),
                         GoodsType = rdr[6].ToString(),
-                        SupplierType = rdr[7].ToString()
+                        SupplierType = rdr[7].ToString(),
+                        Address = rdr[8].ToString()
                     });
                 }
                 rdr.Close();  }
@@ -66,7 +67,8 @@ namespace Backend.DbConnection
                         ContactPerson = rdr[4].ToString(),
                         ContactPhone = rdr[5].ToString(),
                         GoodsType = rdr[6].ToString(),
-                        SupplierType = rdr[7].ToString()
+                        SupplierType = rdr[7].ToString(),
+                        Address = rdr[8].ToString()
                     };
 
                 }
@@ -88,7 +90,7 @@ namespace Backend.DbConnection
         /// <returns></returns>
         public static int InsertSupplier(Supplier s)   {
             try  {
-                string Query = "INSERT INTO `supplier_tbl`( `company_name`, `phone`, `fax`, `contact_person`, `contact_phone`, `goods_type`, `supplier_type`) VALUES ('" + s.companyName + "','" + s.Phone + "','" + s.Fax + "','" + s.ContactPerson + "','" + s.ContactPhone + "','" + s.GoodsType + "','" + s.SupplierType + "'); SELECT LAST_INSERT_ID();";
+                string Query = "INSERT INTO `supplier_tbl`( `company_name`, `phone`, `fax`, `contact_person`, `contact_phone`, `goods_type`, `supplier_type` , `address`) VALUES ('" + s.companyName + "','" + s.Phone + "','" + s.Fax + "','" + s.ContactPerson + "','" + s.ContactPhone + "','" + s.GoodsType + "','" + s.SupplierType + "' ,'" + s.Address + "'); SELECT LAST_INSERT_ID();";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
@@ -117,7 +119,7 @@ namespace Backend.DbConnection
             int rowsNum = -1;
             try
             {
-                string Query = "UPDATE `supplier_tbl` SET `company_name`='"+s.companyName+"',`phone`='"+s.Phone+"',`fax`='"+s.Fax+"',`contact_person`='"+s.ContactPerson+"',`contact_phone`='"+s.ContactPhone+"',`goods_type`='"+s.GoodsType+"',`supplier_type`='"+s.SupplierType+"' WHERE ID ="+s.ID+";";
+                string Query = "UPDATE `supplier_tbl` SET `company_name`='"+s.companyName+"',`phone`='"+s.Phone+"',`fax`='"+s.Fax+"',`contact_person`='"+s.ContactPerson+"',`contact_phone`='"+s.ContactPhone+"',`goods_type`='"+s.GoodsType+"',`supplier_type`='"+s.SupplierType+ "' ,`address`='" + s.Address + "' WHERE ID =" + s.ID+";";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
@@ -137,7 +139,7 @@ namespace Backend.DbConnection
         public static int ViewSupplier(Supplier s) {
             int rowsNum = -1;
             try  {
-                string Query = "UPDATE `supplier_tbl` SET `company_name`='" + s.companyName + "',`phone`='" + s.Phone + "',`fax`='" + s.Fax + "',`contact_person`='" + s.ContactPerson + "',`contact_phone`='" + s.ContactPhone + "',`goods_type`='" + s.GoodsType + "',`supplier_type`='" + s.SupplierType + "' WHERE ID =" + s.ID + ";";
+                string Query = "UPDATE `supplier_tbl` SET `company_name`='" + s.companyName + "',`phone`='" + s.Phone + "',`fax`='" + s.Fax + "',`contact_person`='" + s.ContactPerson + "',`contact_phone`='" + s.ContactPhone + "',`goods_type`='" + s.GoodsType + "',`supplier_type`='" + s.SupplierType + "' ,`address`='" + s.Address + "' WHERE ID =" + s.ID + ";";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;

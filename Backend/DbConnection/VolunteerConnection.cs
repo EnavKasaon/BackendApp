@@ -12,7 +12,7 @@ namespace Backend.DbConnection {
         public static int InsertVolunteer(Volunteer v) {
             int rowsNum = -1;
             try  {
-                string Query = "INSERT INTO `volunteers_tbl` ( `volunteer_fname`, `volunteer_lname`, `phone`, `birth_date`, `volunteer_type`) VALUES ('" + v.VolunteerFName+"', '"+v.VolunteerLName+"', '"+v.vPhone+"', '"+ v.BirthDate.ToString("yyyy-MM-dd") + "', '"+v.VolunteerType + "'); SELECT LAST_INSERT_ID(); ";
+                string Query = "INSERT INTO `volunteers_tbl` ( `volunteer_fname`, `volunteer_lname`, `phone`, `birth_date`, `volunteer_type` , `IdNum`) VALUES ('" + v.VolunteerFName+"', '"+v.VolunteerLName+"', '"+v.vPhone+"', '"+ v.BirthDate.ToString("yyyy-MM-dd") + "', '"+v.VolunteerType + "' , '" + v.IdNum + "'); SELECT LAST_INSERT_ID(); ";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
@@ -68,17 +68,9 @@ namespace Backend.DbConnection {
                         VolunteerFName = MyReader2[1].ToString(),
                         VolunteerLName = MyReader2[2].ToString(),
                         vPhone = MyReader2[3].ToString(),
-                        //        String s = Convert.ToString(rdr.GetValue(4));
-                        //  BirthDate = DateTime.Parse(rdr[4].ToString()),
-                        //   BirthDate = Convert.ToDateTime(rdr[4].ToString()),
-                        //  BirthDate = DateTime.Parse(dateInput),
-
-                        //    DateTime BirthDate = Convert.ToDateTime(deliveryDate);
-                        //  BirthDate = VolunteerConnection.GetVolunteerByID(Int32.Parse(rdr[4].ToString()))
-                        //  BirthDate = DateTime.Parse(rdr[4].ToString()),
                         BirthDate = DateTime.Parse(MyReader2[4].ToString()),
-
-                        VolunteerType = MyReader2[5].ToString()
+                        VolunteerType = MyReader2[5].ToString(),
+                        IdNum = MyReader2[6].ToString()
                     });
 
                 }
@@ -110,13 +102,9 @@ namespace Backend.DbConnection {
                         VolunteerFName = MyReader2[1].ToString(),
                         VolunteerLName = MyReader2[2].ToString(),
                         vPhone = MyReader2[3].ToString(),
-                       // BirthDate = DateTime.Parse(MyReader2[2].ToString()),
-                        // BirthDate = DateTime.Parse(rdr[4].ToString()),
-                        //  BirthDate = Convert.ToDateTime(rdr[4].ToString()),
-                       // BirthDate = DateTime.Parse(rdr[4].ToString()),
                         BirthDate = DateTime.Parse(MyReader2[4].ToString()),
-
-                        VolunteerType = MyReader2[5].ToString()
+                        VolunteerType = MyReader2[5].ToString(),
+                        IdNum = MyReader2[6].ToString()
                     };
                 }
                 MyConn2.Close(); }
@@ -133,7 +121,7 @@ namespace Backend.DbConnection {
         public static int UpdateVolunteer(Volunteer vo)  {
             int rowsNum = -1;
             try {
-                string Query = "UPDATE `volunteers_tbl` SET `volunteer_fname`='" + vo.VolunteerFName + "',`volunteer_lname`='" + vo.VolunteerLName + "',`phone`='" + vo.vPhone + "',`birth_date`='" + vo.BirthDate.ToString("hh:mm tt") + "',`volunteer_type`='" + vo.VolunteerType + "' WHERE volunteer_id =" + vo.VolunteerId + ";";
+                string Query = "UPDATE `volunteers_tbl` SET `volunteer_fname`='" + vo.VolunteerFName + "',`volunteer_lname`='" + vo.VolunteerLName + "',`phone`='" + vo.vPhone + "',`birth_date`='" + vo.BirthDate.ToString("hh:mm tt") + "',`volunteer_type`='" + vo.VolunteerType + "'  ,`IdNum`='" + vo.IdNum + "' WHERE volunteer_id =" + vo.VolunteerId + ";";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
@@ -150,7 +138,7 @@ namespace Backend.DbConnection {
         public static int ViewVolunteer(Volunteer vo)   {
             int rowsNum = -1;
             try  {
-                string Query = "UPDATE `volunteers_tbl` SET `volunteer_fname`='" + vo.VolunteerFName + "',`volunteer_lname`='" + vo.VolunteerLName + "',`phone`='" + vo.vPhone + "',`birth_date`='" + vo.BirthDate.ToString("hh:mm tt") + "',`volunteer_type`='" + vo.VolunteerType + "' WHERE volunteer_id =" + vo.VolunteerId + ";";
+                string Query = "UPDATE `volunteers_tbl` SET `volunteer_fname`='" + vo.VolunteerFName + "',`volunteer_lname`='" + vo.VolunteerLName + "',`phone`='" + vo.vPhone + "',`birth_date`='" + vo.BirthDate.ToString("hh:mm tt") + "',`volunteer_type`='" + vo.VolunteerType + "' ,`IdNum`='" + vo.IdNum + "'  WHERE volunteer_id =" + vo.VolunteerId + ";";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;

@@ -16,6 +16,7 @@ namespace Backend.Models
         public string ContactPerson { get; set; }
         public string ContactPhone { get; set; }
         public string GoodsType { get; set; }
+        public string Address { get; set; }
 
         // public enumTypeSupplier SupplierType { get; set; }
         public string SupplierType { get; set; }
