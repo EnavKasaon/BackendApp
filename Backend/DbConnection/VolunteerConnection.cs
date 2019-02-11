@@ -12,7 +12,9 @@ namespace Backend.DbConnection {
         public static int InsertVolunteer(Volunteer v) {
             int rowsNum = -1;
             try  {
-                string Query = "INSERT INTO `volunteers_tbl` ( `volunteer_fname`, `volunteer_lname`, `phone`, `birth_date`, `volunteer_type` , `IdNum`) VALUES ('" + v.VolunteerFName+"', '"+v.VolunteerLName+"', '"+v.vPhone+"', '"+ v.BirthDate.ToString("yyyy-MM-dd") + "', '"+v.VolunteerType + "' , '" + v.IdNum + "'); SELECT LAST_INSERT_ID(); ";
+                DateTime birth = v.BirthDate;
+                DateTime birth1 = birth.AddDays(1);
+                string Query = "INSERT INTO `volunteers_tbl` ( `volunteer_fname`, `volunteer_lname`, `phone`, `birth_date`, `volunteer_type` , `IdNum`) VALUES ('" + v.VolunteerFName+"', '"+v.VolunteerLName+"', '"+v.vPhone+"', '"+ birth1.ToString("yyyy-MM-dd") + "', '"+v.VolunteerType + "' , '" + v.IdNum + "'); SELECT LAST_INSERT_ID(); ";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
@@ -121,7 +123,9 @@ namespace Backend.DbConnection {
         public static int UpdateVolunteer(Volunteer vo)  {
             int rowsNum = -1;
             try {
-                string Query = "UPDATE `volunteers_tbl` SET `volunteer_fname`='" + vo.VolunteerFName + "',`volunteer_lname`='" + vo.VolunteerLName + "',`phone`='" + vo.vPhone + "',`birth_date`='" + vo.BirthDate.ToString("hh:mm tt") + "',`volunteer_type`='" + vo.VolunteerType + "'  ,`IdNum`='" + vo.IdNum + "' WHERE volunteer_id =" + vo.VolunteerId + ";";
+                DateTime birth = vo.BirthDate;
+                DateTime birth1 = birth.AddDays(1);
+                string Query = "UPDATE `volunteers_tbl` SET `volunteer_fname`='" + vo.VolunteerFName + "',`volunteer_lname`='" + vo.VolunteerLName + "',`phone`='" + vo.vPhone + "',`birth_date`='" + birth1.ToString("yyyy-MM-dd") + "',`volunteer_type`='" + vo.VolunteerType + "'  ,`IdNum`='" + vo.IdNum + "' WHERE volunteer_id =" + vo.VolunteerId + ";";
                 MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
                 MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
                 MySqlDataReader MyReader2;
