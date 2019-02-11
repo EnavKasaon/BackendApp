@@ -23,7 +23,9 @@ namespace Backend.DbConnection
                         userName = rdr[1].ToString(),
                         Password = rdr[2].ToString(),
                         Email = rdr[3].ToString(),
-                        confirmPassword = rdr[4].ToString()
+                        confirmPassword = rdr[4].ToString(),
+                        UserType = rdr[5].ToString()
+
                     });
                 }
                 rdr.Close();  }
@@ -50,7 +52,9 @@ namespace Backend.DbConnection
                         userName = rdr[1].ToString(),
                         Password = rdr[2].ToString(),
                         Email = rdr[3].ToString(),
-                        confirmPassword = rdr[4].ToString()
+                        confirmPassword = rdr[4].ToString(),
+                        UserType = rdr[5].ToString()
+
                     };
                 }
                 rdr.Close();
@@ -102,7 +106,9 @@ namespace Backend.DbConnection
                         userName = rdr[1].ToString(),
                         Password = rdr[2].ToString(),
                         Email = rdr[3].ToString(),
-                        confirmPassword = rdr[4].ToString()
+                        confirmPassword = rdr[4].ToString(),
+                        UserType = rdr[5].ToString()
+
                     };
                 }
                 if (user.userID != 0)  {
@@ -126,6 +132,53 @@ namespace Backend.DbConnection
                 return true;
             }
             return false;
+        }
+
+        // Delete User
+        public static int deleteUser(int id) {
+            int rowsNum = -1;
+            try  {
+                string Query = "DELETE FROM login_tbl WHERE user_id = " + id + ";";
+                MySqlConnection MyConn2 = new MySqlConnection(MySQLCon.conString);
+                MySqlCommand MyCommand2 = new MySqlCommand(Query, MyConn2);
+                MyConn2.Open();
+                rowsNum = MyCommand2.ExecuteNonQuery();     // Here our query will be executed and data saved into the database.  
+                MyConn2.Close();
+                return rowsNum;
+            }
+            catch (Exception ex)  {
+                return rowsNum; }
+        }
+
+        // Get all users
+        public static List<User> GetAllUsers() {
+            MySqlConnection conn = new MySqlConnection(MySQLCon.conString);
+            List<User> us = new List<User>();
+            try {
+                conn.Open(); //open the connection
+                string sql = "SELECT * FROM `login_tbl`;";
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
+                MySqlDataReader rdr = cmd.ExecuteReader();
+                User currentUser = null;
+                while (rdr.Read()) {
+
+                    currentUser = new User()  {
+                        userID = Int32.Parse(rdr[0].ToString()),
+                        userName = rdr[1].ToString(),
+                        Password = rdr[2].ToString(),
+                        Email = rdr[3].ToString(),
+                        confirmPassword = rdr[4].ToString(),
+                        UserType = rdr[5].ToString()
+                    };
+                    us.Add(currentUser);
+                }
+                rdr.Close();
+            }
+            catch (Exception)  {
+                throw;
+            }
+            conn.Close();
+            return us;
         }
 
 

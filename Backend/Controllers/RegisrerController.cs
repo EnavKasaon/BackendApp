@@ -31,7 +31,7 @@ namespace Backend.Controllers {
         public IHttpActionResult GetAllUsers()  {
             try {
                 List<User> res = new List<User>();
-                res = RegisterConnection.GetUserData();
+                res = RegisterConnection.GetAllUsers();
                 return Json(res);
             }
             catch (Exception ex)  {
@@ -64,6 +64,21 @@ namespace Backend.Controllers {
             }
             catch (Exception ex)  {
                 return Json(new { success = false, SuccesMsg = false });
+            }
+        }
+
+
+        //Delete User
+        [AcceptVerbs("DELETE", "OPTIONS", "PUT")]
+        public IHttpActionResult Delete(int id)  {
+            try  {
+                int result = -1;
+                result = RegisterConnection.deleteUser(id);
+                return Json(new { success = true, SuccesMsg = result });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { success = false, ErrorMsg = ex.Message });
             }
         }
 
