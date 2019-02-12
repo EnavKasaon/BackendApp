@@ -80,8 +80,10 @@ namespace Backend.DbConnection {
         User user = null;
         try  {
             conn.Open(); //open the connection
-            string sql = "SELECT * FROM `login_tbl`  WHERE user_name=" + name1 + " AND password=" + pass1 + " LIMIT 1;";
-            MySqlCommand cmd = new MySqlCommand(sql, conn);
+           // string sql = "SELECT * FROM `login_tbl` WHERE user_name=" + name1 + " AND password=" + pass1 + " LIMIT 1;";
+            string sql = "SELECT * FROM `login_tbl` WHERE user_name ='" + name1 + "' AND password ='" + pass1 + "'LIMIT 1;";
+
+                MySqlCommand cmd = new MySqlCommand(sql, conn);
             MySqlDataReader rdr = cmd.ExecuteReader();
 
             while (rdr.Read())   {
